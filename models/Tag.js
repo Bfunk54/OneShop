@@ -1,30 +1,29 @@
-const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/connection');
+const { Model, DataTypes } = require("sequelize");
+const sequelize = require("../config/connection");
 
-// create our Location model
-class Location extends Model {}
+// initialize the Tag model
+class Tag extends Model {}
 
-// create fields/columns for Location model
-Location.init(
+Tag.init(
   {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
-      autoIncrement: true
+      autoIncrement: true,
     },
-    location_name: {
+    tag_name: {
       type: DataTypes.STRING,
-      allowNull: false
-    }
+      allowNull: false,
+    },
   },
   {
     sequelize,
     timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: 'location'
+    modelName: "tag",
   }
 );
 
-module.exports = Location;
+module.exports = Tag;
