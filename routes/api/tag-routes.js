@@ -27,8 +27,15 @@ router.get('/:id', (req, res) => {
   }
 });
 
+// Post route for creating a new tag
 router.post('/', (req, res) => {
   // create a new tag
+  try {
+    Tag.create(req.body);
+  }
+  catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 router.put('/:id', (req, res) => {
