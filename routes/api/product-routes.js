@@ -1,34 +1,32 @@
-const router = require('express').Router();
-const { Product, Category, Tag, ProductTag } = require('../../models');
+const router = require("express").Router();
+const { Product, Category, Tag, ProductTag } = require("../../models");
 
 // Get route for all products
-router.get('/', (req, res) => {
+router.get("/", (req, res) => {
   // find all products and include its categories and tags
   try {
     Product.findAll({
       include: [Category, Tag],
     });
-  }
-  catch (err) {
+  } catch (err) {
     res.status(500).json(err);
   }
 });
 
 // Get route for a single product
-router.get('/:id', (req, res) => {
+router.get("/:id", (req, res) => {
   // find a single product by its `id` and include its categories and tags
   try {
     Product.findByPk(req.params.id, {
       include: [Category, Tag],
     });
-  }
-  catch (err) {
+  } catch (err) {
     res.status(500).json(err);
   }
 });
 
-// create new product
-router.post('/', (req, res) => {
+// Pst route to create a new product
+router.post("/", (req, res) => {
   /* req.body should look like this...
     {
       product_name: "Basketball",
@@ -60,7 +58,7 @@ router.post('/', (req, res) => {
 });
 
 // update product
-router.put('/:id', (req, res) => {
+router.put("/:id", (req, res) => {
   // update product data
   Product.update(req.body, {
     where: {
@@ -101,8 +99,18 @@ router.put('/:id', (req, res) => {
     });
 });
 
-router.delete('/:id', (req, res) => {
+// Delete route for a single product
+router.delete("/:id", (req, res) => {
   // delete one product by its `id` value
+  try {
+    Product.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 module.exports = router;
