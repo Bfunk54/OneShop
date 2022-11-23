@@ -1,3 +1,4 @@
+// Require needed modules
 const router = require("express").Router();
 const { Product, Category, Tag, ProductTag } = require("../../models");
 
