@@ -1,46 +1,51 @@
-const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/connection');
+const { Model, DataTypes } = require("sequelize");
+const sequelize = require("../config/connection");
 
-// create our Traveller model
-class Traveller extends Model {}
+// initialize the Product model
+class Product extends Model {}
 
-// create fields/columns for Traveller model
-Traveller.init(
+Product.init(
   {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
-      autoIncrement: true
+      autoIncrement: true,
     },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    email: {
+    product_name: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
-      validate: {
-        isEmail: true
-      }
     },
-    location_id: {
+    price: {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: false,
+      validate: {
+        isDecimal: true,
+      },
+    },
+    stock: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 10,
+      validate: {
+        isNumeric: true,
+      },
+    },
+    category_id: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'location',
-        key: 'id',
-        unique: false
-      }
-    }
+        model: "category",
+        key: "id",
+      },
+    },
   },
   {
     sequelize,
     timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: 'traveller'
+    modelName: "product",
   }
 );
 
-module.exports = Traveller;
+module.exports = Product;
