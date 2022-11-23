@@ -2,10 +2,10 @@ const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
 // create our Trip model
-class Trip extends Model {}
+class Category extends Model {}
 
 // create fields/columns for Trip model
-Trip.init(
+Category.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -13,30 +13,9 @@ Trip.init(
       primaryKey: true,
       autoIncrement: true
     },
-    trip_budget: {
-      type: DataTypes.DECIMAL(10, 2),
+    category_name: {
+      type: DataTypes.STRING,
       allowNull: true
-    },
-    traveller_amount: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 1
-    },
-    traveller_id: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: 'traveller',
-        key: 'id',
-        unique: false
-      }
-    },
-    location_id: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: 'location',
-        key: 'id',
-        unique: false
-      }
     }
   },
   {
@@ -44,8 +23,8 @@ Trip.init(
     timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: 'trip'
+    modelName: 'category'
   }
 );
 
-module.exports = Trip;
+module.exports = Category;

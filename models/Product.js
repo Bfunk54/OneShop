@@ -24,6 +24,14 @@ Traveller.init(
       validate: {
         isEmail: true
       }
+    },
+    location_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'location',
+        key: 'id',
+        unique: false
+      }
     }
   },
   {
