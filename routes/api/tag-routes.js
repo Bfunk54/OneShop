@@ -14,9 +14,17 @@ router.get('/', (req, res) => {
   }
 });
 
+// Get route for a single tag
 router.get('/:id', (req, res) => {
-  // find a single tag by its `id`
-  // be sure to include its associated Product data
+  // find a single tag by its `id` and include its products
+  try {
+    Tag.findByPk(req.params.id, {
+      include: [Product],
+    });
+  }
+  catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 router.post('/', (req, res) => {
