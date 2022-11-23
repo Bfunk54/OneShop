@@ -37,8 +37,19 @@ router.post("/", (req, res) => {
   }
 });
 
+// Put route for updating a category
 router.put("/:id", (req, res) => {
   // update a category by its `id` value
+  try {
+    Category.update(req.body, {
+      where: {
+        id: req.params.id,
+      }
+    });
+  }
+  catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 router.delete("/:id", (req, res) => {
