@@ -26,8 +26,15 @@ router.get("/:id", (req, res) => {
   }
 });
 
+// Post route for a new category
 router.post("/", (req, res) => {
   // create a new category
+  try {
+    Category.create(req.body);
+  }
+  catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 router.put("/:id", (req, res) => {
