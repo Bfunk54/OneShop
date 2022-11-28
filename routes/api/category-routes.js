@@ -7,7 +7,7 @@ router.get("/", (req, res) => {
   // find all categories and include its products
   try {
     Category.findAll({
-      include: [Product],
+      include: [{ model: Product }]
     });
   } catch (err) {
     res.status(500).json(err);
@@ -19,7 +19,7 @@ router.get("/:id", (req, res) => {
   // find one category by its `id` value and include its products
   try {
     Category.findByPk(req.params.id, {
-      include: [Product],
+      include: [{ model: Product }],
     });
   }
   catch (err) {

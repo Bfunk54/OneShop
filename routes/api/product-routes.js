@@ -3,31 +3,42 @@ const router = require("express").Router();
 const { Product, Category, Tag, ProductTag } = require("../../models");
 
 // Get route for all products
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
   // find all products and include its categories and tags
   try {
-    Product.findAll({
-      include: [Category, Tag],
-    });
+    const allProducts = await Product.findAll(
+      {
+        include: [
+          {
+            model: Category,
+          },
+          {
+            model: Tag,
+          },
+        ],
+      },
+    );
+    res.status(200).json(allProducts);
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
 // Get route for a single product
-router.get("/:id", (req, res) => {
+router.get("/:id", async (req, res) => {
   // find a single product by its `id` and include its categories and tags
   try {
-    Product.findByPk(req.params.id, {
-      include: [Category, Tag],
+    const oneProduct = await Product.findByPk(req.params.id, {
+      include: [{Category, Tag}],
     });
+    res.status(200).json(oneProduct);
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
 // Pst route to create a new product
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
   /* req.body should look like this...
     {
       product_name: "Basketball",
@@ -36,7 +47,7 @@ router.post("/", (req, res) => {
       tagIds: [1, 2, 3, 4]
     }
   */
-  Product.create(req.body)
+  await Product.create(req.body)
     .then((product) => {
       // if there's product tags, we need to create pairings to bulk create in the ProductTag model
       if (req.body.tagIds.length) {
@@ -59,9 +70,9 @@ router.post("/", (req, res) => {
 });
 
 // update product
-router.put("/:id", (req, res) => {
+router.put("/:id", async (req, res) => {
   // update product data
-  Product.update(req.body, {
+  await Product.update(req.body, {
     where: {
       id: req.params.id,
     },
@@ -101,10 +112,10 @@ router.put("/:id", (req, res) => {
 });
 
 // Delete route for a single product
-router.delete("/:id", (req, res) => {
+router.delete("/:id", async (req, res) => {
   // delete one product by its `id` value
   try {
-    Product.destroy({
+    await Product.destroy({
       where: {
         id: req.params.id,
       },
