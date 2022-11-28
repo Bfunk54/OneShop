@@ -7,7 +7,7 @@ router.get("/", async (req, res) => {
   // find all categories and include its products
   try {
     const allCategories = await Category.findAll({
-      include: [{ model: Product }]
+      include: [{ model: Product }],
     });
     res.status(200).json(allCategories);
   } catch (err) {
@@ -21,14 +21,13 @@ router.get("/:id", async (req, res) => {
   try {
     const oneCategory = await Category.findByPk(req.params.id, {
       include: [
-        { 
-          model: Product 
+        {
+          model: Product,
         },
       ],
     });
     res.status(200).json(oneCategory);
-  }
-  catch (err) {
+  } catch (err) {
     res.status(500).json(err);
   }
 });
@@ -39,8 +38,7 @@ router.post("/", async (req, res) => {
   try {
     const newCategory = await Category.create(req.body);
     res.status(200).json(newCategory);
-  }
-  catch (err) {
+  } catch (err) {
     res.status(500).json(err);
   }
 });
@@ -52,11 +50,10 @@ router.put("/:id", async (req, res) => {
     await Category.update(req.body, {
       where: {
         id: req.params.id,
-      }
+      },
     });
     res.status(200).json("The category has been updated!");
-  }
-  catch (err) {
+  } catch (err) {
     res.status(500).json(err);
   }
 });
@@ -68,11 +65,10 @@ router.delete("/:id", async (req, res) => {
     await Category.destroy({
       where: {
         id: req.params.id,
-      }
+      },
     });
     res.status(200).json("The category has been deleted.");
-  }
-  catch (err) {
+  } catch (err) {
     res.status(500).json(err);
   }
 });
