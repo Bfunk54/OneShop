@@ -48,4 +48,5 @@ Email me with any questions: ben_fein@icloud.com
 
 ## Link to the site:
 [Github Repo](https://github.com/Bfunk54/OneShop)
+[One Shop Video Walkthrough](https://drive.google.com/file/d/1uGN27ApQ2Ea_q1RjSmY2debjp2ghVwX2/view?usp=sharing)
 <p align="right">(<a href="#mit-license">back to top</a>)</p>
